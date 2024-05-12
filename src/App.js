@@ -75,15 +75,7 @@ function App() {
 		const mergedArray = [...clusterSheet];
 
 		mergedArray[0] = [
-			'DP',
-			'TYPE',
-			'IDENTIFIER',
-			'FID',
-			'SSARABICNA',
-			'SUB_NO',
-			'AGG_ID (PRIM)',
-			'AGG_ID (OLT)',
-			'# FEEDER',
+				...mergedArray[0],
 			'Aerial Cable 192F - 192F Distribution Cable - AER',
 			'Aerial Cable 144F - 192F Distribution Cable - AER',
 			'Aerial Cable 48F - 48F Distribution Cable - AER',
