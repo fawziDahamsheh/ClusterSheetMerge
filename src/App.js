@@ -25,6 +25,9 @@ const REQUIRED_COLUMNS = [
 	'Tension Accessory (192F)',
 	'Tension Accessory (48F)',
 	'Tension Accessory (96F)',
+	'Cabinet (Existing)',
+	'Cabinet (AUTOMATION)',
+	'Cabinet (AUTOMATION) (Existing)',
 ];
 
 function App() {
@@ -75,7 +78,7 @@ function App() {
 		const mergedArray = [...clusterSheet];
 
 		mergedArray[0] = [
-				...mergedArray[0],
+			...mergedArray[0],
 			'Aerial Cable 192F - 192F Distribution Cable - AER',
 			'Aerial Cable 144F - 144F Distribution Cable - AER',
 			'Aerial Cable 48F - 48F Distribution Cable - AER',
@@ -98,14 +101,17 @@ function App() {
 			'Tension Accessory (192F)',
 			'Tension Accessory (48F)',
 			'Tension Accessory (96F)',
+			'Cabinet (Existing)',
+			'Cabinet (AUTOMATION)',
+			'Cabinet (AUTOMATION) (Existing)',
 		];
 
 		let values = {};
 
-		let AGG_ID = ""
+		let AGG_ID = '';
 		for (const bomElement of bom) {
-			if (bomElement[0]?.includes("Sub-Area Name")) {
-				AGG_ID = bomElement[2].split("=")[1].trim();
+			if (bomElement[0]?.includes('Sub-Area Name')) {
+				AGG_ID = bomElement[2].split('=')[1].trim();
 				values[AGG_ID] = [];
 
 			} else {
@@ -113,17 +119,17 @@ function App() {
 					return column === bomElement[1];
 				});
 
-
 				if (materialIndex === -1) {
 					continue;
 				}
 
-				values[AGG_ID][materialIndex] = (Math.round(bomElement[6]*100))/100;
+				values[AGG_ID][materialIndex] = (Math.round(bomElement[6] * 100)) / 100;
 			}
 		}
 
 		for (const [aggID, quantities] of Object.entries(values)) {
-			const aggIdIndex = mergedArray.findIndex(value => value[0] === parseInt(aggID));
+			const aggIdIndex = mergedArray.findIndex(
+					value => value[0] === parseInt(aggID));
 
 			if (aggIdIndex === -1) {
 				continue;
@@ -137,21 +143,21 @@ function App() {
 
 		const sheetData = [];
 		mergedArray.forEach((element) => {
-			if (element[0] !== "DP") {
+			if (element[0] !== 'DP') {
 				const clusterObject = {};
 				mergedArray[0].forEach((elem, idx) => {
-					clusterObject[elem] = element[idx] ?? 0
-				})
+					clusterObject[elem] = element[idx] ?? 0;
+				});
 
 				sheetData.push(clusterObject);
 			}
-		})
+		});
 
 		const workSheet = XLSX.utils.json_to_sheet(sheetData);
 		const workbook = XLSX.utils.book_new();
 		XLSX.utils.book_append_sheet(workbook, workSheet, 'Sheet1');
 
-		const wbout = XLSX.write(workbook, { type: 'binary', bookType: 'xlsx' });
+		const wbout = XLSX.write(workbook, {type: 'binary', bookType: 'xlsx'});
 
 		// Convert binary string to ArrayBuffer
 		const buf = new ArrayBuffer(wbout.length);
@@ -161,7 +167,7 @@ function App() {
 		}
 
 		// Create Blob object
-		const blob = new Blob([buf], { type: 'application/octet-stream' });
+		const blob = new Blob([buf], {type: 'application/octet-stream'});
 
 		// Create download link
 		const url = URL.createObjectURL(blob);
@@ -173,7 +179,7 @@ function App() {
 		document.body.removeChild(a);
 		URL.revokeObjectURL(url);
 
-	}
+	};
 	return (<div className="App">
 		<div className={'App-input-container'}>
 			<label htmlFor={'cluster-sheet-file'} className={'App-label'}>
