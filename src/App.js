@@ -6,6 +6,7 @@ const REQUIRED_COLUMNS = [
 	'Aerial Cable 192F - 192F Distribution Cable - AER',
 	'Aerial Cable 144F - 144F Distribution Cable - AER',
 	'Aerial Cable 48F - 48F Distribution Cable - AER',
+	'Aerial Cable 48F - 48F Primary Distribution Cable - AER',
 	'Aerial Cable 4F',
 	'Aerial Cable 96F - 96F Distribution Cable - AER',
 	'Aerial drop box',
