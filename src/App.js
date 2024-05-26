@@ -129,7 +129,7 @@ function App() {
 
 		for (const [aggID, quantities] of Object.entries(values)) {
 			const aggIdIndex = mergedArray.findIndex(
-					value => value[0] === parseInt(aggID));
+					value => value[4] === parseInt(aggID) || value[0] === parseInt(aggID));
 
 			if (aggIdIndex === -1) {
 				continue;
